@@ -1,0 +1,217 @@
+<!DOCTYPE html><html><head><title></title><meta charset="utf-8"><style>body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/*# sourceURL=styles/doc.css*/</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*!
+  Theme: GitHub
+  Description: Light theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-light
+  Current colors taken from GitHub's CSS
+*/
+.hljs {
+  color: #24292e;
+  background: #ffffff
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #d73a49
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #6f42c1
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #005cc5
+}
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  /* prettylights-syntax-string */
+  color: #032f62
+}
+.hljs-built_in,
+.hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #e36209
+}
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #6a737d
+}
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #22863a
+}
+.hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #24292e
+}
+.hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #005cc5;
+  font-weight: bold
+}
+.hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #735c0f
+}
+.hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #24292e;
+  font-style: italic
+}
+.hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #24292e;
+  font-weight: bold
+}
+.hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #22863a;
+  background-color: #f0fff4
+}
+.hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #b31d28;
+  background-color: #ffeef0
+}
+.hljs-char.escape_,
+.hljs-link,
+.hljs-params,
+.hljs-property,
+.hljs-punctuation,
+.hljs-tag {
+  /* purposely ignored */
+  
+}/*# sourceURL=/Users/tomoki.yoshida/.npm/_npx/55158e48eb5c59f7/node_modules/highlight.js/styles/github.css*/</style></head>
+	<body class="">
+		<h1 id="環境設定">環境設定</h1>
+<p>今日ここが一番むずかしいですw<br>Pythonを使いますが、ここを乗り越えれば後は穴埋め問題形式です。</p>
+<h2 id="vertex-ai-gemini">Vertex AI Gemini</h2>
+<p>GCPのVertex AI Geminiを使います。</p>
+<p>普段はキーの管理の複雑性から、自分自身の認証情報でAPIを呼ぶ方法を案内している:</p>
+<pre><code class="hljs sh">gcloud auth login
+gcloud auth application-default login
+</code></pre>
+<p>のですが、今回は<strong>運営の都合上APIキーをSlackで配布</strong>します。（勉強会終了後、使えなくなります。）</p>
+<h2 id="python環境構築">Python環境構築</h2>
+<p>コマンドの実行には「ターミナル」を使います。
+<img src="fig/terminal.png" alt=""></p>
+<p>ターミナル上で次を実行してください。</p>
+<pre><code class="hljs sh"><span class="hljs-built_in">cd</span> ~/Downloads/llm-study/
+<span class="hljs-built_in">cp</span> .env.sample .<span class="hljs-built_in">env</span>
+</code></pre>
+<p><a href="https://docs.astral.sh/uv/getting-started/installation/#installation-methods">uv</a>のインストール:</p>
+<pre><code class="hljs sh">curl -LsSf https://astral.sh/uv/install.sh | sh
+uv python install 3.11
+uv <span class="hljs-built_in">sync</span>
+</code></pre>
+<p>環境変数の設定:
+<code>.env</code>というファイルを次のように修正してください:</p>
+<pre><code class="hljs sh">GOOGLE_APPLICATION_CREDENTIALS=<span class="hljs-string">"ここにSlackからダウンロードしたAPIキーのjsonのパスを記入してください"</span>
+</code></pre>
+<p>LLMを叩く:</p>
+<pre><code class="hljs sh">uv run python src/check.py
+</code></pre>
+<p><img src="fig/setup-complete.png" alt="">
+このようにLLMに関する説明が出るところまでいけば完了！</p>
+<p>どうしても環境構築できない方はクラウド上のNotebook環境を案内しますので、Slackで伝えてください。</p>
+<h2 id="n8nアカウントのセットアップ（一番最後の演習で使うguiのツールです）">n8nアカウントのセットアップ（一番最後の演習で使うGUIのツールです）</h2>
+<ol>
+<li>n8n招待リストの<strong>自分の招待リンク</strong>から登録を進める</li>
+<li>名/姓/パスワードを埋めて進める（パスワードは適当に決めて覚えておいてください）
+ <img src="fig/n8n-register.png" alt=""></li>
+<li>アンケートはそのままスキップして「Get started」でOK
+ <img src="fig/n8n-skip.png" alt=""></li>
+<li>この画面までこれば一旦OK。
+ <img src="fig/n8n-workflow.png" alt=""></li>
+</ol>
+<p>時間余った人は以下を進めてください（演習の最後でやるので時間無かった人は後でOK）</p>
+<ol start="5">
+<li>右上のオレンジのボタン「Create Workflow」を押す</li>
+<li>中央に出ている大きな「+」ボタンを押して右側の検索窓に「vertex」と入力し、「Google Vertex Chat Model」を選択
+ <img src="fig/n8n-vertex.png" alt=""></li>
+<li>現れた項目の「Credential to connect with」をクリックして「+Create new credential」を選択
+ <img src="fig/n8n-vertex-setting1.png" alt=""></li>
+<li>「Service Account Email」をVertex AI APIキーの<code>client_email</code>で埋めてください
+ <img src="fig/n8n-vertex-setting2.png" alt=""></li>
+<li>「Private Key」にはVertex AI APIキーの<code>private_key</code>で埋めてください
+ （<code>-----BEGIN PRIVATE KEY-----</code>から<code>-----END PRIVATE KEY-----\n</code>まで全部含めます）
+ <img src="fig/n8n-vertex-setting3.png" alt=""></li>
+<li>右上の「Saved」を押すと元の画面に戻るので、以下のように「Project ID」と「Model Name」も埋めましょう<ul>
+<li>Project ID: 「From list」の状態になっていればAPIキーに書かれていた<code>project_id</code>をプルダウンから選べる</li>
+<li>Model Name: gemini-2.5-flash
+<img src="fig/n8n-vertex-setting4.png" alt=""></li>
+</ul>
+</li>
+<li>左上の余白部分か「Back to canvas」を押してワークフローの画面に戻ります。<br><img src="fig/n8n-vertex-setting5.png" alt=""></li>
+<li>真ん中の下にあるオレンジの「Open chat」を押して開いたチャット画面に「こんにちは」と入力して反応が返ってこれば完了
+<img src="fig/n8n-vertex-setting6.png" alt=""></li>
+</ol>
+<h2 id="クラウドnotebook環境（環境構築失敗した方向けのバックアッププラン）">クラウドNotebook環境（環境構築失敗した方向けのバックアッププラン）</h2>
+<p>権限付与するので連絡ください。</p>
+<ol>
+<li>「JupyterLabを開く」を押す（共通のインスタンスを使います）
+ <img src="fig/notebook1.png" alt=""></li>
+<li>「+」を押すとLauncherが開く
+ <img src="fig/notebook2.png" alt=""></li>
+<li>「Terminal」を押して次のコマンドを<strong>自分の名前に変えて</strong>実行<pre><code class="hljs sh"><span class="hljs-built_in">cp</span> -r llm-study/ your-name/
+</code></pre>
+<ul>
+<li><code>your-name</code>は<strong>あなたの名前</strong>など他の人と被らない名前をアルファベットで書いてください(例: yoshida)</li>
+</ul>
+</li>
+<li>作成した自分のフォルダに入って動作確認<pre><code class="hljs sh"><span class="hljs-built_in">cd</span> your-name/
+uv run python src/check.py
+</code></pre>
+ <img src="fig/notebook3.png" alt=""></li>
+<li>これ以降自分のフォルダの中で作業していただきます
+ 左側のGUIで直感的にファイルアクセスして開くことができます
+ <img src="fig/notebook4.png" alt=""></li>
+</ol>
+
+	
+
+</body></html>

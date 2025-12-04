@@ -1,0 +1,51 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from google import genai
+from google.genai import types
+from pathlib import Path
+
+
+client = genai.Client(vertexai=True)
+
+# 演習: ここでPythonコード実行ツールを設定してグラフを生成させよう
+# ヒント: types.Tool(code_execution=types.ToolCodeExecution) をtoolsに追加
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents="matplotlibを使ったPythonコードを生成して実行し、y=x^2のグラフを出力してください。",
+    # MEMO: グラフに日本語が登場するときは plt.rcParamsにNoto Sans CJK JPを指定させるとよい
+    # 演習: ここでコード実行ツールを設定しよう
+    config=types.GenerateContentConfig(
+        tools=[]  # 演習: ここにツールを追加しよう
+    ),
+)
+
+print(response.text)
+
+# 画像とコードを保存
+result_dir = Path("result")
+result_dir.mkdir(parents=True, exist_ok=True)
+
+code_count = 0
+image_count = 0
+
+for candidate in response.candidates:
+    for part in candidate.content.parts:
+        # 実行されたコードを保存
+        if hasattr(part, "executable_code") and part.executable_code:
+            code = part.executable_code.code
+            code_path = result_dir / f"code_{code_count:03d}.py"
+            code_path.write_text(code, encoding="utf-8")
+            print(f"\nコードを保存: {code_path}")
+            code_count += 1
+
+        # 画像を保存
+        if hasattr(part, "inline_data") and part.inline_data:
+            if part.inline_data.mime_type.startswith("image/"):
+                ext = part.inline_data.mime_type.split("/")[-1]
+                image_path = result_dir / f"image_{image_count:03d}.{ext}"
+                image_path.write_bytes(part.inline_data.data)
+                print(f"画像を保存: {image_path}")
+                image_count += 1
+

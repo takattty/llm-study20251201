@@ -1,0 +1,367 @@
+<!DOCTYPE html><html><head><title></title><meta charset="utf-8"><style>body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/*# sourceURL=styles/doc.css*/</style><style>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*!
+  Theme: GitHub
+  Description: Light theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-light
+  Current colors taken from GitHub's CSS
+*/
+.hljs {
+  color: #24292e;
+  background: #ffffff
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #d73a49
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #6f42c1
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #005cc5
+}
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  /* prettylights-syntax-string */
+  color: #032f62
+}
+.hljs-built_in,
+.hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #e36209
+}
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #6a737d
+}
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #22863a
+}
+.hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #24292e
+}
+.hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #005cc5;
+  font-weight: bold
+}
+.hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #735c0f
+}
+.hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #24292e;
+  font-style: italic
+}
+.hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #24292e;
+  font-weight: bold
+}
+.hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #22863a;
+  background-color: #f0fff4
+}
+.hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #b31d28;
+  background-color: #ffeef0
+}
+.hljs-char.escape_,
+.hljs-link,
+.hljs-params,
+.hljs-property,
+.hljs-punctuation,
+.hljs-tag {
+  /* purposely ignored */
+  
+}/*# sourceURL=/Users/tomoki.yoshida/.npm/_npx/55158e48eb5c59f7/node_modules/highlight.js/styles/github.css*/</style></head>
+	<body class="">
+		<h1 id="llm勉強会">LLM勉強会</h1>
+<ul>
+<li>12/1 SSS 40F Seminar Room</li>
+<li>オフライン・オンライン同時開催</li>
+</ul>
+<p><strong>この資料は社内で実施した勉強会を公開用に修正したものです</strong></p>
+<h2 id="資料">資料</h2>
+<ul>
+<li><a href="index.html">スライド</a></li>
+<li><a href="setup.html">環境構築</a></li>
+</ul>
+<h2 id="目次（全体-180分--3時間）">目次（全体: 180分 = 3時間）</h2>
+<h3 id="1-イントロダクション（15分）">1. イントロダクション（15分）</h3>
+<ul>
+<li>勉強会の目的と背景（5分）</li>
+<li>環境設定（10分）</li>
+</ul>
+<h3 id="2-知識-～前半-llmの基礎～（15分）">2. 知識 ～前半: LLMの基礎～（15分）</h3>
+<ul>
+<li><strong>LLMの基礎</strong><ul>
+<li>いろんなLLM</li>
+<li>LLMの仕組み</li>
+<li>Instruction Tuning</li>
+<li>Reasoning / Thinking</li>
+</ul>
+</li>
+<li><strong>プロンプトエンジニアリング</strong><ul>
+<li>基本テクニック</li>
+<li>プロンプトの洗練方法</li>
+<li>良い例と悪い例の比較</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-実践演習（ハンズオン）～前半～（45分--12分解説）">3. 実践演習（ハンズオン）～前半～（45分 + 12分解説）</h3>
+<ul>
+<li><strong>基礎（例題A）</strong>（15分+4分解説）</li>
+<li><strong>構造化出力（例題B）</strong>（15分+4分解説）</li>
+<li><strong>複数LLMに分ける（例題C）</strong>（15分+4分解説）</li>
+</ul>
+<h3 id="4-知識-～後半：-フィードバックループを持つプロダクトのために～（15分）">4. 知識 ～後半： フィードバックループを持つプロダクトのために～（15分）</h3>
+<ul>
+<li><strong>LLM時代のデータ活用</strong><ul>
+<li>プロダクト全体の最適化<ul>
+<li>ファインチューニング（FT）</li>
+<li>強化学習（RL）</li>
+</ul>
+</li>
+<li>パーソナライズ<ul>
+<li>コンテキストエンジニアリング</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>コンテキストエンジニアリング</strong><ul>
+<li>RAG</li>
+<li>クエリ拡張、ハイブリッド検索、リランキング、グラウンディング</li>
+<li>チャンキング</li>
+</ul>
+</li>
+<li><strong>エージェント</strong><ul>
+<li>ReAct Agent</li>
+<li>Reflexion</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-実践演習（ハンズオン）～後半～（45分--12分解説）">5. 実践演習（ハンズオン）～後半～（45分 + 12分解説）</h3>
+<ul>
+<li><strong>APIオプション（例題D）</strong>: マルチモーダル入力、コード実行、グラウンディング、Tool Calling（15分+4分解説）</li>
+<li><strong>周辺技術（例題E）</strong>: Embedding、DeepResearch設計、LangChainのReAct Agent（15分+4分解説）</li>
+<li><strong>その他（例題F）</strong>: n8n、トレース（15分+4分解説）</li>
+</ul>
+<h3 id="6-案件の実例紹介（15分）">6. 案件の実例紹介（15分）</h3>
+<h3 id="7-締め（2分）">7. 締め（2分）</h3>
+<h2 id="詳細タイムスケジュール（1300開始）">詳細タイムスケジュール（13:00開始）</h2>
+<ol>
+<li><p>イントロダクション（15分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>13:00 - 13:05</td>
+<td>勉強会の目的と背景</td>
+</tr>
+<tr>
+<td>13:05 - 13:15</td>
+<td>環境設定</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>知識 ～前半: LLMの基礎～（15分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>13:15 - 13:30</td>
+<td>LLMの基礎</td>
+</tr>
+<tr>
+<td></td>
+<td>プロンプトエンジニアリング</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>実践演習 ～前半～（57分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>13:30 - 13:45</td>
+<td>例題A：基礎（演習）</td>
+</tr>
+<tr>
+<td>13:45 - 13:49</td>
+<td>例題A：解説</td>
+</tr>
+<tr>
+<td>13:49 - 14:04</td>
+<td>例題B：構造化出力（演習）</td>
+</tr>
+<tr>
+<td>14:04 - 14:08</td>
+<td>例題B：解説</td>
+</tr>
+<tr>
+<td>14:08 - 14:23</td>
+<td>例題C：複数LLMに分ける（演習）</td>
+</tr>
+<tr>
+<td>14:23 - 14:27</td>
+<td>例題C：解説</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<p>☕ 休憩（4分）14:27 - 14:31</p>
+<hr>
+<ol start="4">
+<li><p>知識 ～後半: フィードバックループ～（15分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>14:31 - 14:46</td>
+<td>LLM時代のデータ活用</td>
+</tr>
+<tr>
+<td></td>
+<td>コンテキストエンジニアリング</td>
+</tr>
+<tr>
+<td></td>
+<td>エージェント</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>実践演習 ～後半～（57分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>14:46 - 15:01</td>
+<td>例題D：APIオプション（演習）</td>
+</tr>
+<tr>
+<td>15:01 - 15:05</td>
+<td>例題D：解説</td>
+</tr>
+<tr>
+<td>15:05 - 15:20</td>
+<td>例題E：周辺技術（演習）</td>
+</tr>
+<tr>
+<td>15:20 - 15:24</td>
+<td>例題E：解説</td>
+</tr>
+<tr>
+<td>15:24 - 15:39</td>
+<td>例題F：その他（演習）</td>
+</tr>
+<tr>
+<td>15:39 - 15:43</td>
+<td>例題F：解説</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>案件の実例紹介（15分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>15:43 - 15:58</td>
+<td>案件の実例紹介</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>締め（2分）</p>
+<table>
+<thead>
+<tr>
+<th>時間</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>15:58 - 16:00</td>
+<td>締め</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+
+	
+
+</body></html>
