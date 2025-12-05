@@ -2,6 +2,8 @@
 今日ここが一番むずかしいですw  
 Pythonを使いますが、ここを乗り越えれば後は穴埋め問題形式です。
 
+- [勉強会スライド](slide.md)
+
 ## Vertex AI Gemini
 GCPのVertex AI Geminiを使います。
 
