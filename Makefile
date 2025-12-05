@@ -2,7 +2,7 @@
 TARGET ?= slide.md
 
 .DEFAULT_GOAL := help
-.PHONY: pdf html index preview help doc doc-html build clean zip
+.PHONY: pdf html index preview help doc doc-html build clean zip fig fig-svg
 
 # ドキュメント用のMarkdownファイル（slide.md以外）
 DOCS := setup.md README.md
@@ -22,6 +22,22 @@ index:
 # プレビュー（marp用）
 preview:
 	npx @marp-team/marp-cli $(TARGET) --preview
+
+# fig/ディレクトリのmermaid mdをsvgに変換
+fig:
+	@for f in fig/*.md; do \
+		echo "Converting $$f to SVG..."; \
+		npx -p @mermaid-js/mermaid-cli mmdc -i "$$f" -o "$${f%.md}.svg"; \
+		mv "$${f%.md}-1.svg" "$${f%.md}.svg"; \
+	done
+
+# 単一のmermaid mdをsvgに変換
+fig-svg:
+ifndef FIG
+	$(error FIG is required. Usage: make fig-svg FIG=fig/c.md)
+endif
+	npx -p @mermaid-js/mermaid-cli mmdc -i $(FIG) -o $(FIG:.md=.svg)
+	mv $(FIG:.md=-1.svg) $(FIG:.md=.svg)
 
 # ドキュメント用MarkdownをPDFに変換（Mermaid対応）
 doc:
@@ -104,3 +120,5 @@ help:
 	@echo "  make preview                 $(TARGET) をプレビュー（marp）"
 	@echo "  make doc DOC=<file>          ドキュメントをPDFに変換"
 	@echo "  make doc-html DOC=<file>     ドキュメントをHTMLに変換"
+	@echo "  make fig                     fig/内の全mdをsvgに変換"
+	@echo "  make fig-svg FIG=<file>      指定のmdをsvgに変換"
