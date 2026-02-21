@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -10,7 +11,7 @@ import asyncio
 # C1の評価クラスをインポート
 from c1 import evaluate_article, ArticleEvaluationResult
 
-client = genai.Client(vertexai=True)
+client = genai.Client(api_key = os.getenv("GENAI_API_KEY"))
 
 
 class ArticleRevision(BaseModel):
@@ -41,9 +42,9 @@ def revise_article(
             # 演習: ここにシステム指示を追加しよう（修正方針とフィードバックを含める）
             system_instruction=f"""ここにプロンプトを書いてね""",
             # 演習: ここで構造化出力の設定を追加しよう
-            response_mime_type=None,
-            response_schema=None,
-            temperature=0.3,
+            response_mime_type="application/json",
+            response_schema=ArticleRevision,
+            temperature=0.1,
         ),
     )
     return ArticleRevision.model_validate_json(response.text)
@@ -69,7 +70,8 @@ async def main():
         print(f"{i}. {change}")
 
     # 修正後の記事を保存
-    output_path = "result/revised_article.md"
+    output_path = "result/revised_article-1.0.md"
+    os.makedirs("result", exist_ok=True)
     with open(output_path, "w") as f:
         f.write(revision.revised_article)
 

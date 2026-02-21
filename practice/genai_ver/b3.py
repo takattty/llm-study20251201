@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -7,18 +8,23 @@ from pydantic import BaseModel, Field
 from typing import Literal
 from google.genai.types import GenerateContentConfig
 
-client = genai.Client(vertexai=True)
+client = genai.Client(api_key = os.getenv("GENAI_API_KEY"))
 
 
 # 演習: ここでカテゴリ別のフィードバックを表すクラスを定義しよう
 class CategoryFeedback(BaseModel):
-    # 演習: ここにカテゴリとポジティブ/ネガティブな点のフィールドを定義しよう（Literal[], strなど適切な型を使う）
-    pass
+      category: Literal["function", "quality", "price", "design", "conform"] = Field(
+          description="カテゴリ（function/quality/price/design/conform）"
+      )
+      positive_points: str = Field(description="ポジティブな点")
+      negative_points: str = Field(description="ネガティブな点")
 
 
 class CommentAnalysis(BaseModel):
     # 演習: ここに商品名、カテゴリ別フィードバックのリスト、総合スコアを定義しよう（list[], str, intなど適切な型を使う）
-    pass
+    product_name: str = Field(description="商品名")
+    feedbacks: list[CategoryFeedback]
+    score: int = Field(description="5段階のスコア: ポジティブな点とネガティブな点を総合して計算")
 
 
 input_text = """
@@ -44,7 +50,7 @@ response = client.models.generate_content(
     config=GenerateContentConfig(
         response_mime_type="application/json",
         # 演習: ここで構造化出力のスキーマを指定しよう
-        response_schema=None,
+        response_schema=CommentAnalysis,
         temperature=0.1,
     ),
 )

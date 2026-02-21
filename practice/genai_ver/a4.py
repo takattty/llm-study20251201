@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -5,7 +6,7 @@ load_dotenv()
 from google import genai
 from google.genai import types
 
-client = genai.Client(vertexai=True)
+client = genai.Client(api_key = os.getenv("GENAI_API_KEY"))
 
 
 # 演習: historyリストに会話履歴を蓄積して連続的な対話を実現しよう

@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -5,26 +6,26 @@ load_dotenv()
 from google import genai
 from google.genai import types
 
-client = genai.Client(vertexai=True)
+client = genai.Client(api_key = os.getenv("GENAI_API_KEY"))
 
 
-# 演習: ここで自作関数をいくつか定義しよう
-# ヒント: docstringを書くとLLMがその関数の使い方を理解してくれます
 def get_current_temperature(location: str) -> dict[str, str]:
-    # 演習: ここにdocstringを書いて関数の説明をしよう
-    """演習: ここに関数の説明を書こう（例: 今日の気温を調べる関数）"""
-    # MEMO: 実際の実装はここに書く（演習では不要）
-    return {"気温": "25℃"}
+    """指定した場所の現在の気温を返す"""
+    # ダミー実装
+    return types.Tool(google_search=types.GoogleSearch())
 
 
-# 演習: ここで自作関数をツールとして設定しよう
-# ヒント: tools のリストに直接関数を渡すことができます
+def get_current_humidity(location: str) -> dict[str, str]:
+    """指定した場所の現在の湿度を返す"""
+    # ダミー実装
+    return {"location": location, "湿度": "60%"}
+
+
 response = client.models.generate_content(
     model="gemini-2.5-flash-lite",
     contents="今日の東京の気温と湿度を調べてください",
     config=types.GenerateContentConfig(
-        # 演習: ここに自作関数をツールとして追加しよう
-        tools=[]  # 演習: ここに関数を追加しよう
+        tools=[get_current_temperature, get_current_humidity]
     ),
 )
 

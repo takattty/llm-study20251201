@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,7 +26,13 @@ async def revision_loop(article: str, max_iterations: int = 3):
         # 演習: ここでいずれかの評価軸で修正が必要かどうかをチェックしよう
         # ヒント: 4つの評価軸（technical_accuracy, clarity, structure, seo）の
         # needs_revision を確認して、1つでもTrueならループを続ける
-        needs_revision = False  # 演習: ここを実装しよう
+        # evaluationのJSONの各項目のis_correctionを全てOR演算で確認し、1つでもTrueがあるかを確認
+        needs_revision = (
+            evaluation.technical_accuracy.is_correction
+            or evaluation.clarity.is_correction
+            or evaluation.structure.is_correction
+            or evaluation.seo.is_correction
+        )
 
         print(f"総合判定: {'修正必要' if needs_revision else '修正不要'}")
 

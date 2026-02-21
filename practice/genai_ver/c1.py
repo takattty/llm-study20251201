@@ -1,3 +1,4 @@
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -7,14 +8,16 @@ from google.genai.types import GenerateContentConfig
 from pydantic import BaseModel, Field
 import asyncio
 
-client = genai.Client(vertexai=True)
+client = genai.Client(api_key = os.getenv("GENAI_API_KEY"))
 
 
 class Evaluation(BaseModel):
     """評価結果"""
 
     # 演習: ここに評価のためのフィールドを定義しよう（bool, list[str]など適切な型を使う）
-    pass
+    is_correction: bool = Field(description="修正が必要かどうか")
+    good_point: list[str] = Field(description="優れている点")
+    bad_point: list[str] = Field(description="改善が必要な点")
 
 
 class ArticleEvaluationResult(BaseModel):
@@ -36,8 +39,8 @@ async def evaluate_aspect(system_prompt: str, article: str) -> Evaluation:
         config=GenerateContentConfig(
             system_instruction=system_prompt,
             # 演習: ここで構造化出力の設定を追加しよう
-            response_mime_type=None,
-            response_schema=None,
+            response_mime_type="application/json",
+            response_schema=Evaluation,
             temperature=0.1,
         ),
     )
@@ -47,16 +50,28 @@ async def evaluate_aspect(system_prompt: str, article: str) -> Evaluation:
 # 各評価軸のプロンプト
 # 演習: ここに4つの評価軸のプロンプトを定義しよう
 TECHNICAL_ACCURACY_PROMPT = """
-ここにプロンプトを書いてね
+技術的正確性:
+- コードの妥当性
+- 説明の正確さ
 """
 CLARITY_PROMPT = """
-ここにプロンプトを書いてね
+わかりやすさ:
+- 記事ターゲット層への考慮
+- 説明の丁寧さ
+- 適切な構造化
+- 難しい言葉を使わない
 """
 STRUCTURE_PROMPT = """
-ここにプロンプトを書いてね
+構成・論理展開:
+- 目次構成
+- 一貫性のある話の流れ
+- 必要な情報のみの構成
 """
 SEO_PROMPT = """
-ここにプロンプトを書いてね
+SEO最適化:
+- タイトル
+- 見出し
+- キーワード
 """
 
 
@@ -67,6 +82,10 @@ async def evaluate_article(article: str) -> ArticleEvaluationResult:
     technical, clarity, structure, seo = await asyncio.gather(
         # 演習: ここに4つの評価関数呼び出しを記述しよう
         # evaluate_aspect(...),
+        evaluate_aspect(TECHNICAL_ACCURACY_PROMPT, article),
+        evaluate_aspect(CLARITY_PROMPT, article),
+        evaluate_aspect(STRUCTURE_PROMPT, article),
+        evaluate_aspect(SEO_PROMPT, article)
     )
 
     return ArticleEvaluationResult(
